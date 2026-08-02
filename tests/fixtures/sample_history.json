@@ -1,0 +1,12 @@
+{
+  "current": [
+    {"event": 1, "points": 65, "total_points": 65, "rank": 200000, "overall_rank": 200000, "bank": 0, "value": 1000, "event_transfers": 0, "event_transfers_cost": 0, "points_on_bench": 8},
+    {"event": 2, "points": 55, "total_points": 120, "rank": 180000, "overall_rank": 150000, "bank": 5, "value": 1005, "event_transfers": 1, "event_transfers_cost": 4, "points_on_bench": 3}
+  ],
+  "past": [
+    {"season_name": "2024/25", "total_points": 2100, "rank": 50000}
+  ],
+  "chips": [
+    {"name": "wildcard", "time": "2026-09-10T18:00:00Z", "event": 3}
+  ]
+}

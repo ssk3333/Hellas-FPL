@@ -1,0 +1,4 @@
+{
+  "111": {"picks": [{"element": 10, "is_captain": true}, {"element": 13, "is_captain": false}]},
+  "222": {"picks": [{"element": 18, "is_captain": true}, {"element": 4, "is_captain": false}]}
+}

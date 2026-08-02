@@ -1,0 +1,11 @@
+{
+  "id": 639054,
+  "name": "Test Manager FC",
+  "player_first_name": "Test",
+  "player_last_name": "Manager",
+  "summary_overall_rank": 150000,
+  "summary_overall_points": 120,
+  "last_deadline_bank": 5,
+  "last_deadline_value": 1005,
+  "leagues": {"classic": [{"id": 125646, "name": "Test Mini League"}]}
+}
