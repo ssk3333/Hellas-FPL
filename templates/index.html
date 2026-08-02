@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}{{ site_name }} &mdash; Home{% endblock %}
+{% block content %}
+<h1 class="page-title">Gameweek {{ gw_display }} Dashboard</h1>
+
+{% if preseason %}
+<div class="panel">
+  <div class="panel-body empty-state">
+    <span class="badge badge-amber">PRE-SEASON</span>
+    <p>The new season hasn't kicked off yet. Squad, captaincy, and transfer insights will fill in once
+    gameweek 1 locks in. The fixture ticker and player tables below already reflect this season's clubs
+    and fixture list.</p>
+  </div>
+</div>
+{% endif %}
+
+<div class="grid grid-2">
+  <div class="panel">
+    <div class="panel-head">My Squad{% if entry_name %}<span class="panel-sub">{{ entry_name }}</span>{% endif %}</div>
+    <div class="panel-body">
+      {% if squad.available %}
+      <div class="stat-row" style="margin-bottom: 0.9rem;">
+        <div class="stat-tile"><div class="label">Bank</div><div class="value">£{{ '%.1f'|format(squad.bank_m) }}m</div></div>
+        <div class="stat-tile"><div class="label">Squad Value</div><div class="value">£{{ '%.1f'|format(squad.value_m) }}m</div></div>
+        <div class="stat-tile"><div class="label">Bench Pts</div><div class="value">{{ squad.points_on_bench }}</div></div>
+      </div>
+      {% if squad.weakest_3 %}
+      <p class="small text-muted mt-0"><strong>Weakest holdings:</strong>
+      {% for w in squad.weakest_3 %}{{ w.name }} ({{ w.reasons|join(', ') }}){% if not loop.last %}; {% endif %}{% endfor %}</p>
+      {% endif %}
+      {% if squad.bench_order_issue %}<p class="panel-note">{{ squad.bench_order_issue }}</p>{% endif %}
+      {% else %}
+      <p class="text-muted">{{ squad.reason }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">Captaincy Shortlist</div>
+    <div class="panel-body">
+      {% if captaincy.shortlist %}
+      <table>
+        <tbody>
+        {% for c in captaincy.shortlist[:5] %}
+          <tr>
+            <td><strong>{{ c.name }}</strong> <span class="text-muted small">{{ c.team }}</span></td>
+            <td class="small text-muted">{{ c.rationale }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <p class="small text-muted" style="margin-top:0.6rem;">
+        Safe: <strong>{{ captaincy.safe_pick.name }}</strong> ({{ captaincy.safe_pick.ownership_pct }}% owned)
+        {% if captaincy.differential_pick %} &middot; Differential: <strong>{{ captaincy.differential_pick.name }}</strong> ({{ captaincy.differential_pick.ownership_pct }}% owned){% endif %}
+      </p>
+      <p class="panel-note">{{ captaincy.note }}</p>
+      {% else %}
+      <p class="text-muted">No fixture data available yet for this gameweek.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-head">This Week's Headline Recommendation</div>
+  <div class="panel-body">
+    {% if transfers.available and transfers.suggestions %}
+      {% set top = transfers.suggestions[0] %}
+      <p><strong>Transfer:</strong> {{ top.out.name }} &rarr; {{ top.in.name }}
+      ({{ top.position }}, {{ '£%.1fm'|format(top.cost_delta_m) }}{% if top.cost_delta_m >= 0 %} extra{% else %} saved{% endif %})
+      &mdash; expected gain {{ top.expected_gain }} pts over the next few gameweeks{% if top.hit_cost %}, net {{ top.net_expected_gain }} after the -{{ top.hit_cost }} hit{% endif %}.</p>
+    {% elif transfers.available %}
+      <p><strong>Transfer:</strong> {{ transfers.recommendation|capitalize }}. {{ transfers.reason }}</p>
+    {% else %}
+      <p class="text-muted">{{ transfers.reason if transfers.reason else 'No transfer data available yet.' }}</p>
+    {% endif %}
+
+    {% if differentials %}
+    <p style="margin-top:0.8rem;"><strong>Differential to watch:</strong>
+    {{ differentials[0].name }} ({{ differentials[0].team }}, {{ differentials[0].ownership_pct }}% owned)</p>
+    {% endif %}
+
+    {% if chips.notes %}
+    <p style="margin-top:0.8rem;"><strong>Chips:</strong> {{ chips.notes[0] }}</p>
+    {% endif %}
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-head">Fixture Ticker Preview <span class="panel-sub"><a href="fixtures.html" style="color:inherit;">full ticker &rarr;</a></span></div>
+  <div class="panel-body" style="padding: 0;">
+    {% set ticker_display_clubs = ticker.clubs[:6] %}
+    {% include "_ticker_table.html" with context %}
+  </div>
+</div>
+{% endblock %}

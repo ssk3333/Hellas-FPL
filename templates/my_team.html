@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block title %}{{ site_name }} &mdash; My Team{% endblock %}
+{% block content %}
+<h1 class="page-title">My Team{% if entry_name %} &mdash; {{ entry_name }}{% endif %}</h1>
+
+{% if squad.available %}
+<div class="stat-row">
+  <div class="stat-tile"><div class="label">Bank</div><div class="value">£{{ '%.1f'|format(squad.bank_m) }}m</div></div>
+  <div class="stat-tile"><div class="label">Squad Value</div><div class="value">£{{ '%.1f'|format(squad.value_m) }}m</div></div>
+  <div class="stat-tile"><div class="label">Transfers This GW</div><div class="value">{{ squad.event_transfers }}</div></div>
+  <div class="stat-tile"><div class="label">Bench Points</div><div class="value">{{ squad.points_on_bench }}</div></div>
+</div>
+
+<div class="panel">
+  <div class="panel-head">Starting XI</div>
+  <div class="panel-body table-wrap" style="padding-top:0;">
+    <table>
+      <thead><tr><th>Player</th><th>Team</th><th>Pos</th><th>Next fixtures</th><th class="num">Form</th><th></th></tr></thead>
+      <tbody>
+      {% for p in squad.squad if p.is_starting %}
+        <tr>
+          <td><strong>{{ p.name }}</strong>{% if p.is_captain %} <span class="badge badge-amber">C</span>{% elif p.is_vice_captain %} <span class="badge badge-pitch">VC</span>{% endif %}</td>
+          <td>{{ p.team }}</td>
+          <td>{{ p.position }}</td>
+          <td class="mono small">{{ p.next_fixtures|join(', ') }}</td>
+          <td class="num">{{ p.form }}</td>
+          <td>{% if p.flagged %}<span class="badge badge-claret">{{ p.status_label }}</span>{% endif %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="panel-body" style="padding-top:0;">
+    <p class="panel-note mono small" style="border-top:none;padding-top:0;">Bench, in order:
+    {% for p in squad.squad if not p.is_starting %}{{ p.name }} ({{ p.position }}){% if p.flagged %} &mdash; {{ p.status_label }}{% endif %}{% if not loop.last %} &middot; {% endif %}{% endfor %}
+    </p>
+    {% if squad.bench_order_issue %}<p class="panel-note">{{ squad.bench_order_issue }}</p>{% endif %}
+  </div>
+</div>
+
+{% if squad.weakest_3 %}
+<div class="panel">
+  <div class="panel-head">Weakest Holdings</div>
+  <div class="panel-body">
+    <ul class="mt-0">
+    {% for w in squad.weakest_3 %}<li><strong>{{ w.name }}</strong> ({{ w.team }}) &mdash; {{ w.reasons|join(', ') }}</li>{% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}
+{% else %}
+<div class="panel"><div class="panel-body empty-state"><p class="text-muted">{{ squad.reason }}</p></div></div>
+{% endif %}
+
+<div class="grid grid-2">
+  <div class="panel">
+    <div class="panel-head">Transfer Recommendation</div>
+    <div class="panel-body">
+      {% if transfers.available and transfers.suggestions %}
+        {% for s in transfers.suggestions %}
+        <p><strong>{{ s.out.name }} &rarr; {{ s.in.name }}</strong> ({{ s.position }})<br>
+        <span class="small text-muted">{{ '£%.1fm'|format(s.cost_delta_m) }} cost change &middot; expected gain {{ s.expected_gain }} pts{% if s.hit_cost %} &middot; -{{ s.hit_cost }} hit, net {{ s.net_expected_gain }}{% endif %}</span></p>
+        {% endfor %}
+      {% elif transfers.available %}
+        <p>{{ transfers.recommendation|capitalize }}. <span class="text-muted">{{ transfers.reason }}</span></p>
+      {% else %}
+        <p class="text-muted">{{ transfers.reason if transfers.reason else 'No transfer data yet.' }}</p>
+      {% endif %}
+      {% if transfers.method_note %}<p class="panel-note">{{ transfers.method_note }}</p>{% endif %}
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">Chip Context</div>
+    <div class="panel-body">
+      <p class="small">
+      {% for chip, count in chips.available_chips.items() %}<span class="badge badge-pitch" style="margin-right:0.3rem;">{{ chip }}: {{ count }}</span>{% endfor %}
+      </p>
+      <ul class="mt-0 small">
+      {% for n in chips.notes %}<li>{{ n }}</li>{% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% if my_availability %}
+<div class="panel">
+  <div class="panel-head">Availability Flags In My Squad</div>
+  <div class="panel-body">
+    <ul class="mt-0">
+    {% for a in my_availability %}<li><strong>{{ a.name }}</strong> ({{ a.team }}) &mdash; {{ a.status_label }}: {{ a.news }}</li>{% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}
+
+<div class="panel">
+  <div class="panel-head">Season Trend</div>
+  <div class="panel-body">
+    {% if trend.available %}
+      <p class="small text-muted mt-0">Points per gameweek</p>
+      {{ points_svg|safe }}
+      <p class="small text-muted">Overall rank per gameweek (higher on the chart = better rank)</p>
+      {{ rank_svg|safe }}
+      <p class="panel-note">Bench points wasted this season: {{ trend.total_bench_points_wasted }} &middot; Hit costs paid: {{ trend.total_hits_cost }}</p>
+    {% else %}
+      <p class="text-muted">{{ trend.reason }}</p>
+    {% endif %}
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-head">Transfer History</div>
+  <div class="panel-body table-wrap" style="padding-top:0;">
+    {% if transfer_history %}
+    <table>
+      <thead><tr><th>GW</th><th>In</th><th>Out</th><th class="num">In Cost</th><th class="num">Out Cost</th></tr></thead>
+      <tbody>
+      {% for t in transfer_history %}
+      <tr><td>{{ t.gw }}</td><td>{{ t['in'] }}</td><td>{{ t.out }}</td><td class="num">£{{ '%.1f'|format(t.in_cost_m) }}m</td><td class="num">£{{ '%.1f'|format(t.out_cost_m) }}m</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="text-muted">No transfers made yet this season.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

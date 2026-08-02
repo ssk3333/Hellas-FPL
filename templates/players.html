@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}{{ site_name }} &mdash; Players{% endblock %}
+{% block content %}
+<h1 class="page-title">Players</h1>
+
+<div class="panel">
+  <div class="panel-body">
+    <div class="filter-bar">
+      <div class="filter-field">
+        <label for="filter-position">Position</label>
+        <select id="filter-position">
+          <option value="">All</option>
+          <option value="GKP">GKP</option>
+          <option value="DEF">DEF</option>
+          <option value="MID">MID</option>
+          <option value="FWD">FWD</option>
+        </select>
+      </div>
+      <div class="filter-field">
+        <label for="filter-club">Club</label>
+        <select id="filter-club"><option value="">All</option></select>
+      </div>
+      <div class="filter-field">
+        <label for="filter-price-min">Min price</label>
+        <input type="number" id="filter-price-min" step="0.1" min="0" placeholder="£0.0m">
+      </div>
+      <div class="filter-field">
+        <label for="filter-price-max">Max price</label>
+        <input type="number" id="filter-price-max" step="0.1" min="0" placeholder="£15.0m">
+      </div>
+      <div class="filter-field">
+        <label for="filter-ownership-min">Min ownership %</label>
+        <input type="number" id="filter-ownership-min" step="0.5" min="0" placeholder="0">
+      </div>
+      <div class="filter-field" style="justify-content:center;">
+        <span id="players-count" class="small text-muted">{{ players_count }} players</span>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table id="players-table">
+        <thead>
+          <tr>
+            <th data-sort="name">Name</th>
+            <th data-sort="team">Club</th>
+            <th data-sort="position">Pos</th>
+            <th data-sort="cost_m" class="num">Price</th>
+            <th data-sort="total_points" class="num sorted-desc">Points</th>
+            <th data-sort="form" class="num">Form</th>
+            <th data-sort="ownership_pct" class="num">Owned %</th>
+            <th data-sort="points_per_million" class="num">Pts/£m</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="panel-note">Rows marked FLAG have an availability doubt or injury &mdash; see My Team or the FPL site for detail.</p>
+  </div>
+</div>
+
+<script type="application/json" id="players-data">{{ players_json|safe }}</script>
+{% endblock %}
+{% block scripts %}<script src="assets/players.js"></script>{% endblock %}

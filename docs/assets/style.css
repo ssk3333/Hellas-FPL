@@ -1,0 +1,558 @@
+/* ==========================================================================
+   Hellas FPL -- design tokens
+   Identity: matchday programme / tactics board, not a SaaS dashboard.
+   Palette: deep pitch green + chalk paper + captain's-armband amber +
+   claret danger + steel sky. Fixture difficulty reuses these same hues
+   (green -> amber -> claret) instead of an unrelated heatmap scale.
+   ========================================================================== */
+
+:root {
+  --ink: #10201a;
+  --paper: #edefe7;
+  --paper-raised: #f8f9f3;
+  --pitch: #1d5b3f;
+  --pitch-deep: #0f2e22;
+  --amber: #e2a63c;
+  --claret: #8c2f39;
+  --sky: #3e7cb1;
+
+  --line: rgba(16, 32, 26, 0.14);
+  --line-strong: rgba(16, 32, 26, 0.28);
+  --shadow: 0 1px 0 rgba(16, 32, 26, 0.06);
+
+  --fdr-1: #cfe8d8;
+  --fdr-2: #8fc7a4;
+  --fdr-3: #e2a63c;
+  --fdr-4: #c1543f;
+  --fdr-5: #8c2f39;
+  --fdr-text-light: #10201a;
+  --fdr-text-dark: #f8f9f3;
+
+  --font-display: "Oswald", "Arial Narrow", sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+
+  --radius: 4px;
+  --gap: 1rem;
+  --max-width: 1180px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #eef1ea;
+    --paper: #0b1b14;
+    --paper-raised: #122a20;
+    --pitch: #4c9b74;
+    --pitch-deep: #081812;
+    --amber: #f0b855;
+    --claret: #d9707a;
+    --sky: #6fa8d6;
+
+    --line: rgba(238, 241, 234, 0.14);
+    --line-strong: rgba(238, 241, 234, 0.28);
+    --shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+
+    --fdr-1: #1f4a34;
+    --fdr-2: #2f7350;
+    --fdr-3: #8a672a;
+    --fdr-4: #7a3128;
+    --fdr-5: #5c1f26;
+    --fdr-text-light: #eef1ea;
+    --fdr-text-dark: #eef1ea;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+a { color: inherit; }
+
+img, svg { max-width: 100%; }
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* -- header ---------------------------------------------------------- */
+
+.site-header {
+  background: var(--pitch-deep);
+  color: var(--paper-raised);
+  border-bottom: 3px solid var(--amber);
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+  gap: 1rem;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--paper-raised);
+  white-space: nowrap;
+}
+
+.wordmark small {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--amber);
+  font-weight: 400;
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--paper-raised);
+  color: var(--paper-raised);
+  border-radius: var(--radius);
+  padding: 0.4rem 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.site-nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.site-nav a {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: var(--paper-raised);
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  border-bottom-color: var(--amber);
+}
+
+/* -- matchday strip (deadline ticker, present on every page) -------- */
+
+.matchday-strip {
+  background: var(--pitch);
+  color: var(--paper-raised);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+
+.matchday-strip .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1.25rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.matchday-strip .countdown {
+  color: var(--amber);
+  font-weight: 700;
+}
+
+/* -- layout ------------------------------------------------------------ */
+
+main {
+  padding: 2rem 0 3rem;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 1.9rem;
+  margin: 0 0 1.5rem;
+  border-bottom: 3px solid var(--ink);
+  padding-bottom: 0.5rem;
+}
+
+.grid {
+  display: grid;
+  gap: var(--gap);
+}
+
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+@media (max-width: 800px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+
+/* -- panels (programme-style sections, not floating SaaS cards) ------ */
+
+.panel {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: var(--gap);
+  overflow: hidden;
+}
+
+.panel-head {
+  background: var(--pitch-deep);
+  color: var(--paper-raised);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.95rem;
+  padding: 0.55rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.panel-head .panel-sub {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--amber);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.panel-body {
+  padding: 1rem;
+}
+
+.panel-body > *:last-child { margin-bottom: 0; }
+
+.panel-note {
+  font-size: 0.8rem;
+  color: var(--ink);
+  opacity: 0.72;
+  border-top: 1px dashed var(--line-strong);
+  padding-top: 0.6rem;
+  margin-top: 0.8rem;
+}
+
+/* -- stat tiles ---------------------------------------------------------- */
+
+.stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+}
+
+.stat-tile {
+  flex: 1 1 140px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+  padding: 0.75rem 0.9rem;
+}
+
+.stat-tile .label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+}
+
+.stat-tile .value {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  line-height: 1.1;
+}
+
+/* -- tables --------------------------------------------------------- */
+
+.table-wrap { overflow-x: auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.5rem 0.6rem;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+th {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 0.78rem;
+  background: rgba(16, 32, 26, 0.04);
+  position: sticky;
+  top: 0;
+}
+
+tbody tr:hover { background: rgba(16, 32, 26, 0.05); }
+
+.num { font-family: var(--font-mono); text-align: right; }
+
+/* -- badges / flags -------------------------------------------------- */
+
+.badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-strong);
+}
+
+.badge-amber { background: var(--amber); color: var(--pitch-deep); border-color: transparent; }
+.badge-claret { background: var(--claret); color: var(--paper-raised); border-color: transparent; }
+.badge-sky { background: var(--sky); color: var(--paper-raised); border-color: transparent; }
+.badge-pitch { background: var(--pitch); color: var(--paper-raised); border-color: transparent; }
+
+/* -- fixture ticker grid: the signature element ---------------------- */
+
+.ticker-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.ticker {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  min-width: 640px;
+}
+
+.ticker th, .ticker td {
+  border: none;
+  border-bottom: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.ticker thead th {
+  background: var(--pitch-deep);
+  color: var(--paper-raised);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-align: center;
+  padding: 0.5rem 0.4rem;
+}
+
+.ticker .club-cell {
+  position: sticky;
+  left: 0;
+  background: var(--paper-raised);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 0.85rem;
+  padding: 0.5rem 0.7rem;
+  z-index: 1;
+  border-right: 2px solid var(--line-strong);
+}
+
+.ticker thead .club-cell {
+  background: var(--pitch-deep);
+  color: var(--paper-raised);
+  z-index: 2;
+}
+
+.ticker .rank-num {
+  font-family: var(--font-mono);
+  color: var(--amber);
+  margin-right: 0.4rem;
+}
+
+.fdr-cell {
+  padding: 0.35rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.fdr-chip {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  border-radius: 3px;
+  padding: 0.3rem 0.2rem;
+  line-height: 1.2;
+}
+
+.fdr-chip + .fdr-chip { margin-top: 0.2rem; }
+
+.fdr-1 { background: var(--fdr-1); color: var(--fdr-text-light); }
+.fdr-2 { background: var(--fdr-2); color: var(--fdr-text-light); }
+.fdr-3 { background: var(--fdr-3); color: var(--fdr-text-light); }
+.fdr-4 { background: var(--fdr-4); color: var(--fdr-text-dark); }
+.fdr-5 { background: var(--fdr-5); color: var(--fdr-text-dark); }
+
+.fdr-blank {
+  display: block;
+  border: 1px dashed var(--line-strong);
+  border-radius: 3px;
+  padding: 0.3rem 0.2rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  opacity: 0.6;
+}
+
+.ticker-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  align-items: center;
+}
+
+.ticker-legend .fdr-chip { display: inline-block; padding: 0.15rem 0.5rem; }
+
+/* -- players page filter bar ------------------------------------------ */
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.filter-field label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.75;
+}
+
+.filter-field select,
+.filter-field input {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+  color: var(--ink);
+}
+
+th[data-sort] { cursor: pointer; user-select: none; }
+th[data-sort]:hover { color: var(--amber); }
+th[data-sort].sorted-asc::after { content: " \25B2"; }
+th[data-sort].sorted-desc::after { content: " \25BC"; }
+
+/* -- season trend sparkline ------------------------------------------- */
+
+.trend-chart { width: 100%; height: auto; }
+.trend-chart .line { fill: none; stroke: var(--pitch); stroke-width: 2; }
+.trend-chart .point { fill: var(--amber); }
+.trend-chart .axis { stroke: var(--line-strong); stroke-width: 1; }
+.trend-chart text { font-family: var(--font-mono); font-size: 9px; fill: var(--ink); opacity: 0.7; }
+
+/* -- footer ------------------------------------------------------------ */
+
+.site-footer {
+  border-top: 3px solid var(--ink);
+  padding: 1.25rem 0 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  opacity: 0.8;
+}
+
+.site-footer .container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* -- empty / pre-season states ------------------------------------------ */
+
+.empty-state {
+  text-align: center;
+  padding: 2.5rem 1rem;
+}
+
+.empty-state .badge-amber {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+}
+
+/* -- utility -------------------------------------------------------- */
+
+.mt-0 { margin-top: 0; }
+.text-muted { opacity: 0.72; }
+.small { font-size: 0.82rem; }
+.mono { font-family: var(--font-mono); }
+
+/* -- responsive nav --------------------------------------------------- */
+
+@media (max-width: 700px) {
+  .nav-toggle { display: inline-block; }
+  .site-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--pitch-deep);
+    flex-direction: column;
+    gap: 0;
+    padding: 0.5rem 1.25rem 1rem;
+  }
+  .site-nav.open { display: flex; }
+  .site-nav a { padding: 0.6rem 0; border-bottom: 1px solid rgba(248, 249, 243, 0.12); }
+  .site-header { position: relative; }
+  .stat-row { flex-direction: column; }
+}
+
+/* -- accessibility: focus + reduced motion --------------------------- */
+
+a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+th[data-sort]:focus-visible {
+  outline: 3px solid var(--sky);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

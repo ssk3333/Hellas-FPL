@@ -1,0 +1,42 @@
+{% set clubs = ticker_display_clubs if ticker_display_clubs is defined else ticker.clubs %}
+{% if clubs %}
+<div class="ticker-scroll">
+<table class="ticker">
+  <thead>
+    <tr>
+      <th class="club-cell">Club</th>
+      {% for gwk in clubs[0].gameweeks %}<th>GW{{ gwk.gw }}</th>{% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for club in clubs %}
+    <tr>
+      <td class="club-cell"><span class="rank-num">{{ club.rank }}</span>{{ club.team_short }}</td>
+      {% for gwk in club.gameweeks %}
+      <td class="fdr-cell">
+        {% if gwk.matches %}
+          {% for m in gwk.matches %}<span class="fdr-chip fdr-{{ m.difficulty }}">{{ m.opponent_short }}{{ '(H)' if m.home else '(A)' }}</span>{% endfor %}
+        {% else %}
+          <span class="fdr-blank">&mdash;</span>
+        {% endif %}
+      </td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+<div class="ticker-legend">
+  <span class="text-muted">FDR:</span>
+  <span class="fdr-chip fdr-1">1 easy</span><span class="fdr-chip fdr-2">2</span><span class="fdr-chip fdr-3">3</span><span class="fdr-chip fdr-4">4</span><span class="fdr-chip fdr-5">5 hard</span>
+  <span class="fdr-blank" style="display:inline-block;">&mdash;</span><span class="text-muted">blank gameweek</span>
+</div>
+{% if ticker.clubs and (ticker.clubs | selectattr('double_gws') | list) %}
+<p class="panel-note" style="margin: 0 1rem 1rem;">
+  Double gameweeks:
+  {% for club in ticker.clubs if club.double_gws %}{{ club.team_short }} (GW{{ club.double_gws|join(', GW') }}){% if not loop.last %}, {% endif %}{% endfor %}
+</p>
+{% endif %}
+{% else %}
+<p class="text-muted" style="padding:1rem;">No fixture data available for this window.</p>
+{% endif %}

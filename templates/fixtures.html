@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{ site_name }} &mdash; Fixtures{% endblock %}
+{% block content %}
+<h1 class="page-title">Fixture Ticker</h1>
+<p class="text-muted" style="margin-top:-0.8rem;">Next {{ ticker.num_gws }} gameweeks from GW{{ ticker.from_gw }}, ranked by mean fixture difficulty (easiest first).</p>
+
+<div class="panel">
+  <div class="panel-body" style="padding: 0;">
+    {% include "_ticker_table.html" with context %}
+  </div>
+</div>
+{% endblock %}

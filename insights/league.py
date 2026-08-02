@@ -78,6 +78,8 @@ def league_intelligence(
         },
         "biggest_movers_up": [m for m in movers if m["movement"] > 0][:5],
         "biggest_movers_down": [m for m in reversed(movers) if m["movement"] < 0][:5],
+        "full_standings": sorted(movers, key=lambda m: m["rank"] or 0),
+        "my_team_id": my_team_id,
         "top_rivals": rivals,
         "note": (
             f"\"Template\" here means >={TEMPLATE_OWNERSHIP_THRESHOLD:.0f}% globally owned, not "

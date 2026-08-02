@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}{{ site_name }} &mdash; League{% endblock %}
+{% block content %}
+<h1 class="page-title">Mini-League</h1>
+
+{% if league.available %}
+<div class="stat-row">
+  <div class="stat-tile"><div class="label">My Rank</div><div class="value">{{ league.my_rank }}</div></div>
+  <div class="stat-tile"><div class="label">Gap To Leader</div><div class="value">{{ league.gap_to_leader }} pts</div></div>
+  <div class="stat-tile"><div class="label">Leader</div><div class="value" style="font-size:1.1rem;">{{ league.leader.team_name }}</div></div>
+</div>
+
+<div class="panel">
+  <div class="panel-head">Standings</div>
+  <div class="panel-body table-wrap" style="padding-top:0;">
+    <table>
+      <thead><tr><th class="num">Rank</th><th>Team</th><th>Manager</th><th class="num">Total</th><th class="num">Movement</th></tr></thead>
+      <tbody>
+      {% for r in league.full_standings %}
+      <tr{% if r.entry == league.my_team_id %} style="background: rgba(226,166,60,0.18);"{% endif %}>
+        <td class="num">{{ r.rank }}</td>
+        <td>{{ r.team_name }}</td>
+        <td>{{ r.manager }}</td>
+        <td class="num">{{ r.total }}</td>
+        <td class="num">{% if r.movement > 0 %}<span class="badge badge-pitch">&uarr;{{ r.movement }}</span>{% elif r.movement < 0 %}<span class="badge badge-claret">&darr;{{ -r.movement }}</span>{% else %}&mdash;{% endif %}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-head">Rival Analysis <span class="panel-sub">top {{ league.top_rivals|length }}</span></div>
+  <div class="panel-body table-wrap" style="padding-top:0;">
+    <table>
+      <thead><tr><th class="num">Rank</th><th>Team</th><th>Captain</th><th class="num">Owned %</th><th>Type</th></tr></thead>
+      <tbody>
+      {% for r in league.top_rivals %}
+      <tr>
+        <td class="num">{{ r.rank }}</td>
+        <td>{{ r.team_name }}</td>
+        <td>{{ r.captain if r.captain else '—' }}</td>
+        <td class="num">{{ r.captain_ownership_pct if r.captain_ownership_pct is defined else '' }}</td>
+        <td>{% if r.captain_is_template is defined %}{% if r.captain_is_template %}<span class="badge badge-pitch">Template</span>{% else %}<span class="badge badge-sky">Differential</span>{% endif %}{% endif %}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="panel-body" style="padding-top:0;">
+    <p class="panel-note">{{ league.note }}</p>
+  </div>
+</div>
+{% else %}
+<div class="panel"><div class="panel-body empty-state"><p class="text-muted">{{ league.reason }}</p></div></div>
+{% endif %}
+{% endblock %}

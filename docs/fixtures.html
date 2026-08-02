@@ -1,0 +1,901 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hellas FPL &mdash; Fixtures</title>
+<meta name="description" content="Personal Fantasy Premier League insights for Hellas FPL. Unofficial, uses the public FPL API.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a class="wordmark" href="index.html">Hellas FPL<small>Personal FPL insights &mdash; unofficial</small></a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+    <nav class="site-nav">
+      <a href="index.html" >Home</a>
+      <a href="players.html" >Players</a>
+      <a href="fixtures.html" aria-current="page">Fixtures</a>
+      <a href="my-team.html" >My Team</a>
+      <a href="league.html" >League</a>
+    </nav>
+  </div>
+</header>
+
+<div class="matchday-strip">
+  <div class="container">
+    <span>GW1 &middot; deadline Sat 22 Aug, 03:30</span>
+    <span class="countdown" data-deadline="2026-08-21T17:30:00+00:00">--</span>
+  </div>
+</div>
+
+<main>
+  <div class="container">
+    
+<h1 class="page-title">Fixture Ticker</h1>
+<p class="text-muted" style="margin-top:-0.8rem;">Next 6 gameweeks from GW1, ranked by mean fixture difficulty (easiest first).</p>
+
+<div class="panel">
+  <div class="panel-body" style="padding: 0;">
+    
+
+<div class="ticker-scroll">
+<table class="ticker">
+  <thead>
+    <tr>
+      <th class="club-cell">Club</th>
+      <th>GW1</th><th>GW2</th><th>GW3</th><th>GW4</th><th>GW5</th><th>GW6</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    <tr>
+      <td class="club-cell"><span class="rank-num">1</span>EVE</td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">CRY(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">BOU(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">MUN(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">TOT(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">IPS(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">HUL(A)</span>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td class="club-cell"><span class="rank-num">2</span>LIV</td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">NEW(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">NFO(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">IPS(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">FUL(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">BOU(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">MCI(H)</span>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td class="club-cell"><span class="rank-num">3</span>MUN</td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">HUL(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">IPS(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">EVE(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">MCI(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">FUL(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">TOT(H)</span>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td class="club-cell"><span class="rank-num">4</span>NEW</td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">LIV(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">TOT(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">BOU(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">LEE(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">HUL(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">COV(A)</span>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td class="club-cell"><span class="rank-num">5</span>ARS</td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">COV(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">AVL(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">CHE(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">SUN(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">BHA(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">LEE(H)</span>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td class="club-cell"><span class="rank-num">6</span>AVL</td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">BHA(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">ARS(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">HUL(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">NFO(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">TOT(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">BRE(H)</span>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td class="club-cell"><span class="rank-num">7</span>BHA</td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">AVL(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">CHE(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">LEE(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">COV(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">ARS(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">SUN(A)</span>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td class="club-cell"><span class="rank-num">8</span>CHE</td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">FUL(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">BHA(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-5">ARS(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">HUL(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">BRE(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">BOU(H)</span>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td class="club-cell"><span class="rank-num">9</span>CRY</td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">EVE(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">MCI(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">FUL(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">IPS(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">LEE(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">NFO(H)</span>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td class="club-cell"><span class="rank-num">10</span>IPS</td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">SUN(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">MUN(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">LIV(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">CRY(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">EVE(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">FUL(H)</span>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td class="club-cell"><span class="rank-num">11</span>MCI</td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">BOU(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">CRY(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">COV(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">MUN(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">SUN(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">LIV(A)</span>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td class="club-cell"><span class="rank-num">12</span>NFO</td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">LEE(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">LIV(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">TOT(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">AVL(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">COV(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">CRY(A)</span>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td class="club-cell"><span class="rank-num">13</span>TOT</td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">BRE(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">NEW(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">NFO(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">EVE(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">AVL(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">MUN(A)</span>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td class="club-cell"><span class="rank-num">14</span>SUN</td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">IPS(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">FUL(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">BRE(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">ARS(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-5">MCI(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">BHA(H)</span>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td class="club-cell"><span class="rank-num">15</span>BRE</td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">TOT(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">LEE(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">SUN(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">BOU(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">CHE(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">AVL(A)</span>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td class="club-cell"><span class="rank-num">16</span>COV</td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-5">ARS(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">HUL(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-5">MCI(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">BHA(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">NFO(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">NEW(H)</span>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td class="club-cell"><span class="rank-num">17</span>HUL</td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">MUN(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">COV(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">AVL(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">CHE(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">NEW(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">EVE(H)</span>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td class="club-cell"><span class="rank-num">18</span>LEE</td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">NFO(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">BRE(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">BHA(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">NEW(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">CRY(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-5">ARS(A)</span>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td class="club-cell"><span class="rank-num">19</span>FUL</td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">CHE(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">SUN(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">CRY(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">LIV(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">MUN(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-2">IPS(A)</span>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td class="club-cell"><span class="rank-num">20</span>BOU</td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-5">MCI(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">EVE(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">NEW(A)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-3">BRE(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">LIV(H)</span>
+        
+      </td>
+      
+      <td class="fdr-cell">
+        
+          <span class="fdr-chip fdr-4">CHE(A)</span>
+        
+      </td>
+      
+    </tr>
+    
+  </tbody>
+</table>
+</div>
+<div class="ticker-legend">
+  <span class="text-muted">FDR:</span>
+  <span class="fdr-chip fdr-1">1 easy</span><span class="fdr-chip fdr-2">2</span><span class="fdr-chip fdr-3">3</span><span class="fdr-chip fdr-4">4</span><span class="fdr-chip fdr-5">5 hard</span>
+  <span class="fdr-blank" style="display:inline-block;">&mdash;</span><span class="text-muted">blank gameweek</span>
+</div>
+
+
+  </div>
+</div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <span>Data as of Sun 02 Aug, 20:23 Australia/Hobart</span>
+    <span>Unofficial &mdash; uses the public FPL API. Not affiliated with the Premier League or FPL.</span>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+
+</body>
+</html>
