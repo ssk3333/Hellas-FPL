@@ -1,0 +1,44 @@
+# Hellas FPL — configuration
+#
+# Change your team/league IDs or site name here without touching any code.
+# Note: this file IS committed to git and will be public once the repo is
+# pushed to GitHub Pages. Don't put your email address or any secret here —
+# the recipient email and Resend API key live in your local .env file and
+# in GitHub Actions secrets instead (see .env.example and README.md).
+
+fpl:
+  team_id: 639054
+  mini_league_id: 125646
+
+site:
+  name: "Hellas FPL"
+  # IANA timezone name, used to display all dates/times on the site and
+  # in the email. Australia/Hobart covers both AEST and AEDT correctly
+  # across daylight-saving changes; a fixed UTC offset would not.
+  timezone: "Australia/Hobart"
+  base_url: ""  # filled in during Phase 5 once the GitHub Pages URL is known
+
+cache:
+  dir: "cache"
+  ttl_seconds:
+    bootstrap_static: 3600
+    fixtures: 3600
+    event_live_active: 90
+    element_summary: 21600
+    # finished-gameweek data (entry history, past picks, etc.) is cached
+    # forever — it cannot change once a gameweek is over.
+
+network:
+  user_agent: "HellasFPL-PersonalInsights/1.0 (+https://github.com/; personal, non-commercial FPL project)"
+  max_retries: 4
+  retry_backoff_base_seconds: 1.5
+  element_summary_delay_seconds: 0.5
+
+email:
+  send_hour_local: 8       # Thursday 08:00 in site.timezone
+  reminder_hours_before_deadline: 3
+
+insights:
+  min_minutes_for_form: 180        # ~2 full matches, for underlying-numbers tables
+  differential_ownership_pct_max: 10.0
+  element_summary_shortlist_size: 60

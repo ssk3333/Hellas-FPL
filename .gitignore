@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+cache/
+*.egg-info/
+.pytest_cache/
+
+# email previews are generated locally, not published
+email_preview.html
+
+# deadline-reminder state file is runtime data, not source
+data/reminder_state.json
