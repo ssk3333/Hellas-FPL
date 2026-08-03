@@ -45,6 +45,9 @@ def squad_review(bootstrap: dict, fixtures: list, picks: dict | None, *, from_gw
             "is_starting": (p.get("position") or 99) <= 11,
             "is_captain": bool(p.get("is_captain")),
             "is_vice_captain": bool(p.get("is_vice_captain")),
+            # FPL's own points multiplier for this pick: 0 = benched (no points),
+            # 1 = normal starter, 2 = captain (double points), 3 = triple captain
+            # chip active on this player. Not otherwise interpreted here.
             "multiplier": p.get("multiplier", 1),
             "form": row["form"], "total_points": int(row["total_points"]),
             "next_fixtures": next_summaries,
