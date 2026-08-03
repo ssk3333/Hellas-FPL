@@ -10,7 +10,12 @@ on:
     # Every hour at :05 UTC. Offset from the other two workflows so their
     # commits-back-to-main don't collide (see site-rebuild.yml / deadline-reminder.yml).
     - cron: "5 * * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Send now regardless of day/time (for testing -- still de-duplicated per week)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -32,7 +37,8 @@ jobs:
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
-        run: python -m scripts.send_email --mode weekly
+        run: |
+          python -m scripts.send_email --mode weekly ${{ inputs.force && '--force' || '' }}
 
       - name: Commit and push weekly_state.json if changed
         run: |
