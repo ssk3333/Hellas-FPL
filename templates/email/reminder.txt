@@ -1,0 +1,13 @@
+DEADLINE IN {{ hours_until }} HOURS
+{{ site_name }} -- Gameweek {{ gw_display }} -- {{ deadline_local }}
+
+{% if transfers.available and transfers.suggestions %}{% set top = transfers.suggestions[0] %}Transfer: {{ top.out.name }} -> {{ top.in.name }}
+{% elif transfers.available %}Transfer: {{ transfers.recommendation|capitalize }}
+{% endif %}
+{% if captaincy.safe_pick %}Captain: {{ captaincy.safe_pick.name }} ({{ captaincy.safe_pick.ownership_pct }}% owned){% if captaincy.differential_pick %}, or {{ captaincy.differential_pick.name }} as a differential{% endif %}
+{% endif %}
+{% if my_availability %}Check before you lock in: {{ my_availability|map(attribute='name')|join(', ') }} flagged.
+{% endif %}
+{% if site_url %}Full details: {{ site_url }}{% endif %}
+
+Unofficial, uses the public FPL API. Data as of {{ generated_at }} {{ timezone_label }}.

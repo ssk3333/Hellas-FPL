@@ -1,0 +1,62 @@
+{{ site_name }} -- GAMEWEEK {{ gw_display }}
+Deadline: {{ deadline_local }}
+{% if league.available %}
+You're rank {{ league.my_rank }} in your mini-league, {{ league.gap_to_leader }} pts behind {{ league.leader.team_name }}.
+{% endif %}
+------------------------------------------------------------
+SQUAD FLAGS
+{% if my_availability %}{% for a in my_availability %}
+- {{ a.name }} ({{ a.team }}) -- {{ a.status_label }}: {{ a.news }}
+{%- endfor %}{% else %}
+No availability flags in your squad this week.
+{% endif %}
+------------------------------------------------------------
+CAPTAINCY SHORTLIST
+{% if captaincy.shortlist %}{% for c in captaincy.shortlist[:5] %}
+{{ loop.index }}. {{ c.name }} ({{ c.team }}) -- {{ c.rationale }}
+{%- endfor %}
+
+Safe: {{ captaincy.safe_pick.name }} ({{ captaincy.safe_pick.ownership_pct }}% owned){% if captaincy.differential_pick %} | Differential: {{ captaincy.differential_pick.name }} ({{ captaincy.differential_pick.ownership_pct }}% owned){% endif %}
+{% else %}
+No fixture data available for captaincy yet.
+{% endif %}
+------------------------------------------------------------
+TRANSFER RECOMMENDATION
+{% if transfers.available and transfers.suggestions %}{% set top = transfers.suggestions[0] %}
+{{ top.out.name }} -> {{ top.in.name }} ({{ top.position }})
+{{ '£%.1fm'|format(top.cost_delta_m) }}{% if top.cost_delta_m >= 0 %} extra{% else %} saved{% endif %} -- expected gain {{ top.expected_gain }} pts{% if top.hit_cost %} -- -{{ top.hit_cost }} hit, net {{ top.net_expected_gain }}{% endif %}
+{% elif transfers.available %}
+{{ transfers.recommendation|capitalize }}. {{ transfers.reason }}
+{% else %}
+{{ transfers.reason if transfers.reason else 'No transfer data available yet.' }}
+{% endif %}
+------------------------------------------------------------
+FIXTURE SWINGS -- NEXT {{ ticker.num_gws }} GWS
+{% if ticker.clubs %}
+Easiest runs:
+{% for c in ticker.clubs[:5] %}{{ loop.index }}. {{ c.team_short }} ({{ c.mean_difficulty }}){% if c.double_gws %} -- DGW{% endif %}
+{% endfor %}
+Hardest runs:
+{% for c in ticker.clubs[-5:]|reverse %}{{ loop.index }}. {{ c.team_short }} ({{ c.mean_difficulty }}){% if c.blank_gws %} -- BGW{% endif %}
+{% endfor %}{% else %}
+No fixture data available yet.
+{% endif %}
+------------------------------------------------------------
+DIFFERENTIALS TO WATCH
+{% if differentials %}{% for d in differentials[:3] %}
+- {{ d.name }} ({{ d.team }}, {{ d.position }}) -- {{ d.ownership_pct }}% owned
+{%- endfor %}{% else %}
+No differentials data available yet.
+{% endif %}
+------------------------------------------------------------
+MINI-LEAGUE
+{% if league.available %}
+Rank {{ league.my_rank }}, {{ league.gap_to_leader }} pts off {{ league.leader.team_name }}.{% if league.biggest_movers_up %} Biggest riser: {{ league.biggest_movers_up[0].team_name }} (+{{ league.biggest_movers_up[0].movement }}).{% endif %}
+{% else %}
+{{ league.reason }}
+{% endif %}
+------------------------------------------------------------
+{% if site_url %}Full site: {{ site_url }}{% endif %}
+
+Unofficial, uses the public FPL API. Not affiliated with the Premier League or FPL.
+Data as of {{ generated_at }} {{ timezone_label }}.

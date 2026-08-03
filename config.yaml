@@ -36,7 +36,7 @@ network:
 
 email:
   send_hour_local: 8       # Thursday 08:00 in site.timezone
-  reminder_hours_before_deadline: 3
+  reminder_hours_before_deadline: 9
 
 insights:
   min_minutes_for_form: 180        # ~2 full matches, for underlying-numbers tables

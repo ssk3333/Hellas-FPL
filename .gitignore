@@ -9,5 +9,8 @@ cache/
 # email previews are generated locally, not published
 email_preview.html
 
-# deadline-reminder state file is runtime data, not source
-data/reminder_state.json
+# data/weekly_state.json and data/reminder_state.json are NOT ignored --
+# GitHub Actions runners are ephemeral, so the send-once dedup logic only
+# works if those small state files get committed back to the repo after
+# each send (see .github/workflows/weekly-email.yml and
+# deadline-reminder.yml). They contain no secrets, just a week/gameweek marker.

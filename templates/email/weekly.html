@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ site_name }} &mdash; GW{{ gw_display }}</title>
+</head>
+<body style="margin:0; padding:0; background:#e7e9e1; font-family: Arial, Helvetica, sans-serif;">
+<div style="display:none; max-height:0; overflow:hidden; opacity:0;">
+  {{ preheader }}
+</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#e7e9e1;">
+<tr><td align="center" style="padding: 16px 8px;">
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px; background:#ffffff; border:1px solid #cdd2c6;">
+
+  <tr>
+    <td style="background:#0f2e22; padding:18px 20px;">
+      <span style="color:#f8f9f3; font-size:20px; font-weight:bold; letter-spacing:0.5px;">{{ site_name }}</span><br>
+      <span style="color:#e2a63c; font-size:12px; letter-spacing:0.5px;">GAMEWEEK {{ gw_display }} &middot; DEADLINE {{ deadline_local }}</span>
+    </td>
+  </tr>
+
+  {% if league.available %}
+  <tr>
+    <td style="padding:16px 20px 4px;">
+      <p style="margin:0; font-size:15px; color:#10201a;">
+        You're <strong>rank {{ league.my_rank }}</strong> in your mini-league, {{ league.gap_to_leader }} pts behind {{ league.leader.team_name }}.
+      </p>
+    </td>
+  </tr>
+  {% endif %}
+
+  <tr>
+    <td style="padding:16px 20px 4px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        <tr><td style="background:#0f2e22; padding:6px 10px;"><span style="color:#f8f9f3; font-size:12px; font-weight:bold; letter-spacing:0.5px;">SQUAD FLAGS</span></td></tr>
+      </table>
+      {% if my_availability %}
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:8px;">
+        {% for a in my_availability %}
+        <tr><td style="padding:4px 0; font-size:14px; border-bottom:1px solid #e7e9e1;">
+          <strong>{{ a.name }}</strong> ({{ a.team }}) &mdash; <span style="color:#8c2f39;">{{ a.status_label }}</span>: {{ a.news }}
+        </td></tr>
+        {% endfor %}
+      </table>
+      {% else %}
+      <p style="margin:8px 0 0; font-size:14px; color:#4b564e;">No availability flags in your squad this week.</p>
+      {% endif %}
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:16px 20px 4px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        <tr><td style="background:#0f2e22; padding:6px 10px;"><span style="color:#f8f9f3; font-size:12px; font-weight:bold; letter-spacing:0.5px;">CAPTAINCY SHORTLIST</span></td></tr>
+      </table>
+      {% if captaincy.shortlist %}
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:8px;">
+        {% for c in captaincy.shortlist[:5] %}
+        <tr><td style="padding:4px 0; font-size:14px; border-bottom:1px solid #e7e9e1;">
+          <strong>{{ loop.index }}. {{ c.name }}</strong> ({{ c.team }}) &mdash; {{ c.rationale }}
+        </td></tr>
+        {% endfor %}
+      </table>
+      <p style="margin:8px 0 0; font-size:13px; color:#4b564e;">
+        Safe: <strong>{{ captaincy.safe_pick.name }}</strong> ({{ captaincy.safe_pick.ownership_pct }}% owned){% if captaincy.differential_pick %} &middot; Differential: <strong>{{ captaincy.differential_pick.name }}</strong> ({{ captaincy.differential_pick.ownership_pct }}% owned){% endif %}
+      </p>
+      {% else %}
+      <p style="margin:8px 0 0; font-size:14px; color:#4b564e;">No fixture data available for captaincy yet.</p>
+      {% endif %}
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:16px 20px 4px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        <tr><td style="background:#0f2e22; padding:6px 10px;"><span style="color:#f8f9f3; font-size:12px; font-weight:bold; letter-spacing:0.5px;">TRANSFER RECOMMENDATION</span></td></tr>
+      </table>
+      <div style="margin-top:8px; font-size:14px; color:#10201a;">
+      {% if transfers.available and transfers.suggestions %}
+        {% set top = transfers.suggestions[0] %}
+        <p style="margin:0 0 4px;"><strong>{{ top.out.name }} &rarr; {{ top.in.name }}</strong> ({{ top.position }})</p>
+        <p style="margin:0; color:#4b564e;">{{ '£%.1fm'|format(top.cost_delta_m) }}{% if top.cost_delta_m >= 0 %} extra{% else %} saved{% endif %} &middot; expected gain {{ top.expected_gain }} pts{% if top.hit_cost %} &middot; -{{ top.hit_cost }} hit, net {{ top.net_expected_gain }}{% endif %}</p>
+      {% elif transfers.available %}
+        <p style="margin:0 0 4px;"><strong>{{ transfers.recommendation|capitalize }}</strong></p>
+        <p style="margin:0; color:#4b564e;">{{ transfers.reason }}</p>
+      {% else %}
+        <p style="margin:0; color:#4b564e;">{{ transfers.reason if transfers.reason else 'No transfer data available yet.' }}</p>
+      {% endif %}
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:16px 20px 4px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        <tr><td style="background:#0f2e22; padding:6px 10px;"><span style="color:#f8f9f3; font-size:12px; font-weight:bold; letter-spacing:0.5px;">FIXTURE SWINGS &mdash; NEXT {{ ticker.num_gws }} GWS</span></td></tr>
+      </table>
+      {% if ticker.clubs %}
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:8px;">
+        <tr>
+          <td width="50%" valign="top" style="font-size:13px; color:#10201a; padding-right:8px;">
+            <strong>Easiest runs</strong><br>
+            {% for c in ticker.clubs[:5] %}{{ loop.index }}. {{ c.team_short }} ({{ c.mean_difficulty }}){% if c.double_gws %} &mdash; DGW{% endif %}<br>{% endfor %}
+          </td>
+          <td width="50%" valign="top" style="font-size:13px; color:#10201a; padding-left:8px;">
+            <strong>Hardest runs</strong><br>
+            {% for c in ticker.clubs[-5:]|reverse %}{{ loop.index }}. {{ c.team_short }} ({{ c.mean_difficulty }}){% if c.blank_gws %} &mdash; BGW{% endif %}<br>{% endfor %}
+          </td>
+        </tr>
+      </table>
+      {% else %}
+      <p style="margin:8px 0 0; font-size:14px; color:#4b564e;">No fixture data available yet.</p>
+      {% endif %}
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:16px 20px 4px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        <tr><td style="background:#0f2e22; padding:6px 10px;"><span style="color:#f8f9f3; font-size:12px; font-weight:bold; letter-spacing:0.5px;">DIFFERENTIALS TO WATCH</span></td></tr>
+      </table>
+      {% if differentials %}
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:8px;">
+        {% for d in differentials[:3] %}
+        <tr><td style="padding:4px 0; font-size:14px; border-bottom:1px solid #e7e9e1;">
+          <strong>{{ d.name }}</strong> ({{ d.team }}, {{ d.position }}) &mdash; {{ d.ownership_pct }}% owned
+        </td></tr>
+        {% endfor %}
+      </table>
+      {% else %}
+      <p style="margin:8px 0 0; font-size:14px; color:#4b564e;">No differentials data available yet.</p>
+      {% endif %}
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:16px 20px 20px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        <tr><td style="background:#0f2e22; padding:6px 10px;"><span style="color:#f8f9f3; font-size:12px; font-weight:bold; letter-spacing:0.5px;">MINI-LEAGUE</span></td></tr>
+      </table>
+      {% if league.available %}
+      <p style="margin:8px 0 0; font-size:14px; color:#10201a;">
+        Rank {{ league.my_rank }}, {{ league.gap_to_leader }} pts off {{ league.leader.team_name }}.
+        {% if league.biggest_movers_up %} Biggest riser: {{ league.biggest_movers_up[0].team_name }} (+{{ league.biggest_movers_up[0].movement }}).{% endif %}
+      </p>
+      {% else %}
+      <p style="margin:8px 0 0; font-size:14px; color:#4b564e;">{{ league.reason }}</p>
+      {% endif %}
+    </td>
+  </tr>
+
+  <tr>
+    <td style="background:#f2f3ec; padding:16px 20px; border-top:3px solid #10201a;">
+      {% if site_url %}
+      <p style="margin:0 0 8px; font-size:14px;"><a href="{{ site_url }}" style="color:#1d5b3f; font-weight:bold;">View the full site &rarr;</a></p>
+      {% endif %}
+      <p style="margin:0; font-size:11px; color:#7a8177;">
+        Unofficial, uses the public FPL API. Not affiliated with the Premier League or FPL.
+        Data as of {{ generated_at }} {{ timezone_label }}.
+      </p>
+    </td>
+  </tr>
+
+</table>
+</td></tr>
+</table>
+</body>
+</html>
