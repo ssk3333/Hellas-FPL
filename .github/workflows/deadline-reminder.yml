@@ -1,0 +1,56 @@
+name: Deadline reminder
+
+# Runs hourly; scripts/send_email.py decides whether the next deadline is
+# actually inside the reminder window (config.yaml: email.reminder_hours_before_deadline)
+# and whether a reminder has already gone out for this gameweek
+# (data/reminder_state.json), so this can't double-send even with cron's
+# multi-minute delay or a re-triggered run.
+on:
+  schedule:
+    # Every hour at :35 UTC. Offset from the other two workflows so their
+    # commits-back-to-main don't collide (see site-rebuild.yml / weekly-email.yml).
+    - cron: "35 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Send reminder if the deadline is close
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+        run: python -m scripts.send_email --mode reminder
+
+      - name: Commit and push reminder_state.json if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -f data/reminder_state.json ]; then
+            git add data/reminder_state.json
+          fi
+          if git diff --cached --quiet; then
+            echo "No state change -- nothing to commit."
+            exit 0
+          fi
+          git commit -m "Record reminder sent [skip ci]"
+          for attempt in 1 2 3; do
+            if git push; then
+              exit 0
+            fi
+            echo "Push rejected (another workflow likely pushed first) -- rebasing and retrying, attempt $attempt"
+            git pull --rebase
+          done
+          git push
