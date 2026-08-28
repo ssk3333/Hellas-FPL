@@ -87,6 +87,34 @@ normal). If you genuinely got two emails for the same gameweek, check both
 `data/weekly_state.json` and `data/reminder_state.json` in the repo — if either was manually
 deleted or edited, the dedup check can't do its job. Don't hand-edit those files.
 
+## The weekly email or reminder didn't arrive at all
+
+**Cause:** This actually happened once (week of GW2, Aug 2026) — traced by checking the real
+timestamps on past Actions runs (Actions tab → click the workflow → each run shows "X ago";
+hovering or opening the run gives the exact time). We found a genuine **~33 hour gap with zero
+scheduled runs** across both email workflows at once. This is a documented GitHub Actions
+limitation, not a bug in this project's code: the `schedule` trigger is explicitly "best-effort"
+and GitHub can delay or entirely drop scheduled runs under load, with no guarantee.
+
+**Fix already in place:** the weekly email no longer requires landing in the *exact* scheduled
+hour — it's a catch-up window now (Thursday's scheduled hour through the actual deadline), so a
+delayed run still sends, just later than usual. Check `data/weekly_state.json` — if it shows last
+week's number, the automated send genuinely hasn't happened yet and should still land before the
+deadline once a run finally fires.
+
+**Known accepted risk:** the deadline reminder has no equivalent fix — its whole point is being
+close to a deadline that's already fixed in time, so there's no sensible "send it late" for a
+reminder about a deadline that's already passed. If a gap this large recurs and swallows the
+reminder window too, the fix is to send it by hand:
+```bash
+.venv/Scripts/python.exe -m scripts.send_email --mode reminder --force
+```
+then commit and push the resulting `data/reminder_state.json` so the automated job doesn't also
+send once it catches up. The user and Claude Code discussed adding an external cron-ping service
+(e.g. cron-job.org hitting the GitHub API) as a more robust fix and decided the risk wasn't worth
+the added complexity of another account/service — revisit that if these gaps become frequent
+rather than a one-off.
+
 ## Something else entirely
 
 Copy the exact error text (or a screenshot) and describe what you *see*, not what you think is
