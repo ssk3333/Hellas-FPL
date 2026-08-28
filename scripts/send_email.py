@@ -1,9 +1,9 @@
 """Sends the weekly digest email or the pre-deadline reminder via Resend.
 
 Usage:
-    python -m scripts.send_email                       # weekly digest -- only actually
-                                                           # sends if it's Thursday, the
-                                                           # scheduled local hour
+    python -m scripts.send_email                       # weekly digest -- sends once, any
+                                                           # time from Thursday's scheduled
+                                                           # hour through the deadline
     python -m scripts.send_email --dry-run              # writes email_preview.html, no send
     python -m scripts.send_email --force                 # weekly digest, ignore the
                                                            # day/hour/dedup gate
@@ -136,10 +136,27 @@ def main() -> int:
         send_hour = CONFIG["email"]["send_hour_local"]
 
         if not args.force:
-            if not (now_local.weekday() == THURSDAY and now_local.hour == send_hour):
+            # GitHub's `schedule` trigger is documented as best-effort: under load it can be
+            # delayed by hours or dropped for an entire run, with no guarantee (confirmed
+            # in practice -- a ~33h gap in this repo's own run history swallowed the exact
+            # hour this used to require). So instead of requiring exactly Thursday at
+            # send_hour, this is a catch-up window: any time from Thursday send_hour through
+            # the upcoming deadline, still gated to once per week by the state file below.
+            on_or_after_thursday = now_local.weekday() > THURSDAY
+            is_thursday_at_or_after_send_hour = (
+                now_local.weekday() == THURSDAY and now_local.hour >= send_hour
+            )
+            time_ok = on_or_after_thursday or is_thursday_at_or_after_send_hour
+
+            deadline_passed = False
+            if data.get("deadline_iso"):
+                deadline_dt = datetime.fromisoformat(data["deadline_iso"])
+                deadline_passed = datetime.now(timezone.utc) >= deadline_dt
+
+            if not time_ok or deadline_passed:
                 print(
                     f"It's {now_local.strftime('%A %H:%M')} in {SITE_TIMEZONE} -- scheduled "
-                    f"send time is Thursday {send_hour:02d}:00. Nothing sent."
+                    f"send window is Thursday {send_hour:02d}:00 through the deadline. Nothing sent."
                 )
                 return 0
             iso_year, iso_week, _ = now_local.isocalendar()
