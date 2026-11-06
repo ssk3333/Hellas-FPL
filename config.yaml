@@ -35,8 +35,8 @@ network:
   element_summary_delay_seconds: 0.5
 
 email:
-  send_hour_local: 8       # Thursday 08:00 in site.timezone
-  reminder_hours_before_deadline: 9
+  send_hour_local: 6       # Thursday 06:00 in site.timezone (AEDT in summer, AEST in winter)
+  reminder_hours_before_deadline: 9   # only used by manual `--mode reminder`; no automated reminder
 
 insights:
   min_minutes_for_form: 180        # ~2 full matches, for underlying-numbers tables

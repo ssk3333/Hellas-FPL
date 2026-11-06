@@ -87,7 +87,7 @@ normal). If you genuinely got two emails for the same gameweek, check both
 `data/weekly_state.json` and `data/reminder_state.json` in the repo — if either was manually
 deleted or edited, the dedup check can't do its job. Don't hand-edit those files.
 
-## The weekly email or reminder didn't arrive at all
+## The weekly email didn't arrive at all
 
 **Cause:** This actually happened once (week of GW2, Aug 2026) — traced by checking the real
 timestamps on past Actions runs (Actions tab → click the workflow → each run shows "X ago";

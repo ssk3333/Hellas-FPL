@@ -12,10 +12,9 @@ time it's used, ask whoever is helping you (or search it) rather than guessing.
 | Workflow | Schedule | What it does |
 |---|---|---|
 | **Site rebuild** | Every 6 hours | Re-fetches data from the FPL API and republishes the site |
-| **Weekly email** | Checked hourly, only sends Thursday 08:00 `Australia/Hobart` | Sends the full digest email |
-| **Deadline reminder** | Checked hourly, only sends when the next deadline is within 9 hours | Sends a short reminder email |
+| **Weekly email** | Checked hourly, only sends Thursday 06:00 `Australia/Hobart` | Sends the full digest email (the only automated email) |
 
-All three live under the **Actions** tab of the GitHub repo. A green check mark means it ran
+Both live under the **Actions** tab of the GitHub repo. A green check mark means it ran
 fine (even if it decided not to send anything that hour — that's normal and expected most of the
 time). A red X means something broke — see [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
 
@@ -90,10 +89,10 @@ Python (not your system Python) — that's what `.venv/Scripts/python.exe` means
 # Preview the weekly email without sending it (writes email_preview.html)
 .venv/Scripts/python.exe -m scripts.send_email --dry-run
 
-# Actually send the weekly email right now, bypassing the "is it Thursday 8am" check
+# Actually send the weekly email right now, bypassing the "is it Thursday 6am" check
 .venv/Scripts/python.exe -m scripts.send_email --force
 
-# Preview or force-send the deadline reminder the same way
+# The deadline reminder is no longer automated, but can still be sent by hand
 .venv/Scripts/python.exe -m scripts.send_email --mode reminder --dry-run
 .venv/Scripts/python.exe -m scripts.send_email --mode reminder --force
 

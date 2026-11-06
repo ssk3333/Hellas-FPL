@@ -8,7 +8,7 @@ name: Weekly email
 on:
   schedule:
     # Every hour at :05 UTC. Offset from the other two workflows so their
-    # commits-back-to-main don't collide (see site-rebuild.yml / deadline-reminder.yml).
+    # commits-back-to-main don't collide (see site-rebuild.yml).
     - cron: "5 * * * *"
   workflow_dispatch:
     inputs:
